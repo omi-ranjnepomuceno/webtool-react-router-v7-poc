@@ -1,7 +1,12 @@
 import type { Config } from "tailwindcss";
+import withMT from "@material-tailwind/react/utils/withMT";
 
-export default {
-  content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
+export default withMT({
+  content: [
+    "./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -17,6 +22,11 @@ export default {
         ],
       },
     },
+    colors: {
+      primary: "#0030FF",
+      secondary: "#FFD15C",
+      error: "#B20B0B",
+    },
   },
   plugins: [],
-} satisfies Config;
+} satisfies Config);
