@@ -1,23 +1,17 @@
 import type { Route } from "./+types/ApolloClientProvider";
-import { Outlet } from "react-router";
+import { Outlet, useLoaderData } from "react-router";
 import {
   ApolloClient,
   ApolloProvider,
   HttpLink,
   InMemoryCache,
+  type NormalizedCacheObject,
 } from "@apollo/client";
 import { getAuthToken } from "~/features/auth/utils";
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const authToken = await getAuthToken(request);
-  return {
-    authToken,
-  };
-}
-
 export function getApolloClient(authToken?: string | null) {
   return new ApolloClient({
-    ssrMode: true,
+    ssrMode: typeof window === "undefined",
     link: new HttpLink({
       uri: "https://develop.smop.asia/graphql/",
       headers: {
@@ -28,11 +22,15 @@ export function getApolloClient(authToken?: string | null) {
   });
 }
 
-export default function ApolloClientProvider({
-  loaderData,
-}: Route.ComponentProps) {
-  const { authToken } = loaderData;
+export async function loader({ request }: Route.LoaderArgs) {
+  const authToken = await getAuthToken(request);
   const client = getApolloClient(authToken);
+
+  return client;
+}
+
+export default function ApolloClientProvider() {
+  const client = useLoaderData<ApolloClient<NormalizedCacheObject>>();
 
   return (
     <ApolloProvider client={client}>
