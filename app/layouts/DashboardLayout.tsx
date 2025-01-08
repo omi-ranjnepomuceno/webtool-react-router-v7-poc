@@ -1,6 +1,6 @@
 import type { Route } from "./+types/DashboardLayout";
 import { Outlet, redirect } from "react-router";
-import { getAuthToken } from "~/features/auth/utils";
+import { getAuthToken } from "~/features/auth/utils.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const authToken = await getAuthToken(request);

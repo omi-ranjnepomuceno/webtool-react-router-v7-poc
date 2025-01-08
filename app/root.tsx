@@ -11,6 +11,8 @@ import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 import { ThemeProvider } from "@material-tailwind/react";
 import theme from "./theme";
+import { getApolloClient } from "./features/auth/utils";
+import { ApolloProvider } from "@apollo/client";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,10 +47,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const client = getApolloClient();
   return (
-    <ThemeProvider value={theme}>
-      <Outlet />
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider value={theme}>
+        <Outlet />
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
 
