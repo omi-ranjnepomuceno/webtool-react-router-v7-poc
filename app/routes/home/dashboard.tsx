@@ -1,7 +1,7 @@
-import { useUser } from "~/features/auth/hooks";
 import type { Route } from "./+types/dashboard";
-import { Form } from "react-router";
+import { Form, useRouteLoaderData } from "react-router";
 import { logout } from "~/features/auth/utils.server";
+import type { User } from "~/types/User";
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
@@ -12,8 +12,8 @@ export async function action({ request }: Route.ActionArgs) {
   }
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
-  const { user } = useUser();
+export default function Home() {
+  const user = useRouteLoaderData<User>("layouts/userProvider");
 
   return (
     <div className="flex flex-col">
