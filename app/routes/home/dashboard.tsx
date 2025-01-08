@@ -1,7 +1,7 @@
 import { useUser } from "~/features/auth/hooks";
 import type { Route } from "./+types/dashboard";
 import { Form } from "react-router";
-import { logout } from "~/features/auth/utils";
+import { logout } from "~/features/auth/utils.server";
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();

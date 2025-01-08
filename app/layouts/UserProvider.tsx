@@ -1,8 +1,12 @@
 import type { Route } from "./+types/UserProvider";
 import { Outlet } from "react-router";
 import { createContext, useEffect, useState } from "react";
-import { getApolloClient } from "./ApolloClientProvider";
-import { getAuthToken, logout, verifyToken } from "~/features/auth/utils";
+import { getApolloClient } from "~/features/auth/utils";
+import {
+  getAuthToken,
+  logout,
+  verifyToken,
+} from "~/features/auth/utils.server";
 import type { User } from "~/types/User";
 
 interface UserContext {

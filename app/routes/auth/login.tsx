@@ -1,8 +1,11 @@
 import type { Route } from "./+types/login";
 import { redirect, useActionData } from "react-router";
 import LoginForm from "~/features/auth/components/LoginForm";
-import { authTokenCookie, csrfTokenCookie } from "~/features/auth/cookies";
-import { login } from "~/features/auth/utils";
+import {
+  authTokenCookie,
+  csrfTokenCookie,
+} from "~/features/auth/cookies.server";
+import { login } from "~/features/auth/utils.server";
 import type { AccountError } from "~/types/__generated__/graphql";
 import smLogo from "~/assets/images/smo-blue.svg";
 import smLoginImage from "~/assets/images/smop-login.svg";
